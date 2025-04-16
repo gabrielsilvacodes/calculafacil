@@ -9,8 +9,9 @@
   <script src="js/scripts.js" defer></script>
 </head>
 
-<body>
+<body class="light-theme">
   <main class="calculator">
+    <button id="toggle-theme" type="button" aria-label="Alternar tema" title="Alternar tema">🌓</button>
     <h1>CalculaFácil</h1>
 
     <section id="operations" aria-label="Visor da calculadora">
@@ -18,32 +19,40 @@
       <div id="current-operations">0</div>
     </section>
 
-    <div class="buttons-container">
-      <button class="btn operator" id="ce">CE</button>
-      <button class="btn operator" id="clear">C</button>
-      <button class="btn operator" id="del">DEL</button>
-      <button class="btn operator">/</button>
+    <section id="buttons" aria-label="Teclado da calculadora">
+      <div class="buttons-container">
+        <button class="btn operator" id="ce">CE</button>
+        <button class="btn operator" id="clear">C</button>
+        <button class="btn operator" id="del">DEL</button>
+        <button class="btn operator">/</button>
 
-      <button class="btn">7</button>
-      <button class="btn">8</button>
-      <button class="btn">9</button>
-      <button class="btn operator">*</button>
+        <button class="btn">7</button>
+        <button class="btn">8</button>
+        <button class="btn">9</button>
+        <button class="btn operator">*</button>
 
-      <button class="btn">4</button>
-      <button class="btn">5</button>
-      <button class="btn">6</button>
-      <button class="btn operator">-</button>
+        <button class="btn">4</button>
+        <button class="btn">5</button>
+        <button class="btn">6</button>
+        <button class="btn operator">-</button>
 
-      <button class="btn">1</button>
-      <button class="btn">2</button>
-      <button class="btn">3</button>
-      <button class="btn operator">+</button>
+        <button class="btn">1</button>
+        <button class="btn">2</button>
+        <button class="btn">3</button>
+        <button class="btn operator">+</button>
 
-      <button class="btn">0</button>
-      <button class="btn">.</button>
-      <button class="btn equal" id="equal">=</button>
-    </div>
+        <button class="btn">0</button>
+        <button class="btn">.</button>
+        <button class="btn equal" id="equal">=</button>
+      </div>
+    </section>
   </main>
+
+  <section id="history" aria-label="Histórico de operações">
+    <h2>Histórico</h2>
+    <ul id="history-list"></ul>
+  </section>
 </body>
+
 
 </html>
