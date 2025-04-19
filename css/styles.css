@@ -1,15 +1,11 @@
-/* =================== VARIÁVEIS =================== */
 :root {
-  /* Base */
   --bg-color: #f3f3f3;
   --text-color: #222;
 
-  /* Visor */
   --visor-bg: #222;
   --visor-text: #fff;
   --previous-text-color: #aaa;
 
-  /* Botões */
   --btn-bg: #e0e0e0;
   --btn-hover: #d5d5d5;
   --operator-bg: #f4a261;
@@ -17,10 +13,8 @@
   --equal-bg: #2a9d8f;
   --equal-hover: #21867a;
 
-  /* Histórico */
   --history-bg: #ffffff;
 
-  /* Sombra */
   --btn-press-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
   --btn-raised-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -40,7 +34,7 @@ body.dark-theme {
   --history-bg: #1e1e1e;
 }
 
-/* =================== RESET E BASE =================== */
+/* ========== RESET E BASE ========== */
 * {
   margin: 0;
   padding: 0;
@@ -53,14 +47,21 @@ body {
   color: var(--text-color);
   height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3em;
+  padding: 2rem;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* =================== CABEÇALHO =================== */
+.main-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* ========== CABEÇALHO ========== */
 .calculator-header {
   display: flex;
   justify-content: space-between;
@@ -77,14 +78,13 @@ body {
   align-self: flex-end;
 }
 
-/* =================== CONTAINER PRINCIPAL =================== */
+/* ========== CALCULADORA ========== */
 .calculator {
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   padding: 0.5em;
   width: min(320px, 90vw);
   background-color: var(--bg-color);
-  color: var(--text-color);
   display: flex;
   flex-direction: column;
 }
@@ -94,7 +94,7 @@ body {
   font-weight: 400;
 }
 
-/* =================== VISOR =================== */
+/* ========== VISOR ========== */
 #operations {
   background-color: var(--visor-bg);
   color: var(--visor-text);
@@ -128,7 +128,7 @@ body {
   color: #e63946;
 }
 
-/* =================== BOTÕES =================== */
+/* ========== BOTÕES ========== */
 .buttons-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -162,7 +162,6 @@ body {
   outline-offset: 2px;
 }
 
-/* Operadores */
 .operator {
   background-color: var(--operator-bg);
   color: #fff;
@@ -172,40 +171,43 @@ body {
   background-color: var(--operator-hover);
 }
 
-/* Igual */
 .equal {
   grid-column: span 4;
   background-color: var(--equal-bg);
   color: #fff;
-  box-shadow: var(--btn-raised-shadow);
   font-size: 1.5rem;
+  box-shadow: var(--btn-raised-shadow);
 }
 
 .equal:hover {
   background-color: var(--equal-hover);
 }
 
-/* =================== HISTÓRICO =================== */
+/* ========== HISTÓRICO LATERAL ========== */
 #history {
-  margin-top: 30px;
-  padding: 15px;
+  width: min(280px, 90vw);
+  max-height: 430px;
   background-color: var(--history-bg);
   border-radius: 8px;
+  padding: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  width: min(320px, 90vw);
-  max-height: 200px;
-  overflow-y: auto;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: background-color 0.3s ease;
 }
 
 #history h2 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-bottom: 10px;
 }
 
 #history-list {
   list-style: none;
   padding: 0;
+  margin-bottom: 10px;
+  overflow-y: auto;
+  max-height: 320px;
   scroll-behavior: smooth;
 }
 
@@ -216,12 +218,13 @@ body {
   animation: fadeInUp 0.3s ease;
 }
 
-/* Botão limpar histórico */
 #clear-history {
-  margin-top: 10px;
+  padding: 10px;
   background-color: #e63946;
   color: white;
+  border: none;
   border-radius: 6px;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
@@ -229,7 +232,7 @@ body {
   background-color: #c5303c;
 }
 
-/* =================== ANIMAÇÕES =================== */
+/* ========== ANIMAÇÕES ========== */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -241,7 +244,7 @@ body {
   }
 }
 
-/* =================== ACESSIBILIDADE =================== */
+/* ========== ACESSIBILIDADE ========== */
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;

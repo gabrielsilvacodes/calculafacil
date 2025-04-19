@@ -11,55 +11,57 @@
 </head>
 
 <body class="light-theme">
-  <main class="calculator" role="main">
-    <div class="calculator-header" role="banner">
-      <h1>CalculaFácil</h1>
-      <button id="toggle-theme" type="button" aria-label="Alternar entre tema claro e escuro" title="Alternar tema">🌓</button>
-    </div>
-
-    <section id="operations" aria-label="Visor da calculadora" role="region">
-      <div id="previous-operations" aria-live="polite"></div>
-      <div id="current-operations" aria-live="polite"></div>
-    </section>
-
-    <section id="buttons" aria-label="Teclado da calculadora" role="region">
-      <div class="buttons-container">
-
-        <button class="btn operator" id="ce" aria-label="Limpar entrada" type="button">CE</button>
-        <button class="btn operator" id="clear" aria-label="Limpar tudo" type="button">C</button>
-        <button class="btn operator" id="del" aria-label="Apagar último dígito" type="button">DEL</button>
-        <button class="btn operator" id="percent" aria-label="Converter para porcentagem" type="button">%</button>
-
-        <button class="btn number" aria-label="Número 7" data-value="7" type="button">7</button>
-        <button class="btn number" aria-label="Número 8" data-value="8" type="button">8</button>
-        <button class="btn number" aria-label="Número 9" data-value="9" type="button">9</button>
-        <button class="btn operator" aria-label="Divisão" type="button">/</button>
-
-        <button class="btn number" aria-label="Número 4" data-value="4" type="button">4</button>
-        <button class="btn number" aria-label="Número 5" data-value="5" type="button">5</button>
-        <button class="btn number" aria-label="Número 6" data-value="6" type="button">6</button>
-        <button class="btn operator" aria-label="Multiplicação" type="button">*</button>
-
-        <button class="btn number" aria-label="Número 1" data-value="1" type="button">1</button>
-        <button class="btn number" aria-label="Número 2" data-value="2" type="button">2</button>
-        <button class="btn number" aria-label="Número 3" data-value="3" type="button">3</button>
-        <button class="btn operator" aria-label="Subtração" type="button">-</button>
-
-        <button class="btn number" aria-label="Número 0" data-value="0" type="button">0</button>
-        <button class="btn number" aria-label="Ponto decimal" data-value="." type="button">.</button>
-        <button class="btn operator" id="invert" aria-label="Inverter sinal" type="button">+/-</button>
-        <button class="btn operator" aria-label="Adição" type="button">+</button>
-
-        <button class="btn equal" id="equal" aria-label="Calcular resultado" type="button">=</button>
+  <div class="main-wrapper">
+    <main class="calculator" role="main">
+      <div class="calculator-header" role="banner">
+        <h1>CalculaFácil</h1>
+        <button id="toggle-theme" type="button" aria-label="Alternar entre tema claro e escuro" title="Alternar tema">🌓</button>
       </div>
-    </section>
-  </main>
 
-  <section id="history" aria-label="Histórico de operações" role="region">
-    <h2>Histórico</h2>
-    <ul id="history-list" aria-live="polite"></ul>
-    <button class="btn" id="clear-history" aria-label="Limpar histórico de operações" type="button">Limpar Histórico</button>
-  </section>
+      <section id="operations" aria-label="Visor da calculadora" role="region">
+        <div id="previous-operations" aria-live="polite"></div>
+        <div id="current-operations" aria-live="polite"></div>
+      </section>
+
+      <section id="buttons" aria-label="Teclado da calculadora" role="region">
+        <div class="buttons-container">
+
+          <button class="btn operator" id="ce" aria-label="Limpar entrada" type="button">CE</button>
+          <button class="btn operator" id="clear" aria-label="Limpar tudo" type="button">C</button>
+          <button class="btn operator" id="del" aria-label="Apagar último dígito" type="button">DEL</button>
+          <button class="btn operator" id="percent" aria-label="Converter para porcentagem" type="button">%</button>
+
+          <button class="btn number" aria-label="Número 7" data-value="7" type="button">7</button>
+          <button class="btn number" aria-label="Número 8" data-value="8" type="button">8</button>
+          <button class="btn number" aria-label="Número 9" data-value="9" type="button">9</button>
+          <button class="btn operator" aria-label="Divisão" type="button">/</button>
+
+          <button class="btn number" aria-label="Número 4" data-value="4" type="button">4</button>
+          <button class="btn number" aria-label="Número 5" data-value="5" type="button">5</button>
+          <button class="btn number" aria-label="Número 6" data-value="6" type="button">6</button>
+          <button class="btn operator" aria-label="Multiplicação" type="button">*</button>
+
+          <button class="btn number" aria-label="Número 1" data-value="1" type="button">1</button>
+          <button class="btn number" aria-label="Número 2" data-value="2" type="button">2</button>
+          <button class="btn number" aria-label="Número 3" data-value="3" type="button">3</button>
+          <button class="btn operator" aria-label="Subtração" type="button">-</button>
+
+          <button class="btn number" aria-label="Número 0" data-value="0" type="button">0</button>
+          <button class="btn number" aria-label="Ponto decimal" data-value="." type="button">.</button>
+          <button class="btn operator" id="invert" aria-label="Inverter sinal" type="button">+/-</button>
+          <button class="btn operator" aria-label="Adição" type="button">+</button>
+
+          <button class="btn equal" id="equal" aria-label="Calcular resultado" type="button">=</button>
+        </div>
+      </section>
+    </main>
+
+    <section id="history" aria-label="Histórico de operações" role="region">
+      <h2>Histórico</h2>
+      <ul id="history-list" aria-live="polite"></ul>
+      <button class="btn" id="clear-history" aria-label="Limpar histórico de operações" type="button">Limpar Histórico</button>
+    </section>
+  </div>
 </body>
 
 </html>
