@@ -216,20 +216,34 @@ body {
   padding: 5px 0;
   border-bottom: 1px solid #ccc;
   animation: fadeInUp 0.3s ease;
+  color: var(--text-color);
+  overflow-x: hidden;
 }
 
 #clear-history {
-  padding: 10px;
-  background-color: #e63946;
-  color: white;
+  padding: 12px;
+  font-size: 1rem;
   border: none;
   border-radius: 6px;
+  background-color: #e63946;
+  color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  box-shadow: var(--btn-raised-shadow);
+  transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
 #clear-history:hover {
   background-color: #c5303c;
+}
+
+#clear-history:active {
+  transform: scale(0.96);
+  box-shadow: var(--btn-press-shadow);
+}
+
+#clear-history:focus {
+  outline: 2px solid var(--equal-bg);
+  outline-offset: 2px;
 }
 
 /* ========== ANIMAÇÕES ========== */

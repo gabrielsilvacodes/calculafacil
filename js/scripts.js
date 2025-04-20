@@ -6,15 +6,16 @@ const previousOperationText = document.querySelector("#previous-operations");
 const historyList = document.querySelector("#history-list");
 const clearHistoryButton = document.querySelector("#clear-history");
 
-// === Classe Principal ===
+// === Classe Principal da Calculadora ===
 class Calculator {
-  constructor(previousOpEl, currentOpEl, historyListEl) {
-    this.previousOpEl = previousOpEl;
-    this.currentOpEl = currentOpEl;
-    this.historyListEl = historyListEl;
+  constructor(previousDisplay, currentDisplay, historyList) {
+    this.previousDisplay = previousDisplay;
+    this.currentDisplay = currentDisplay;
+    this.historyList = historyList;
     this.reset();
   }
 
+  // Reinicia os valores da calculadora
   reset() {
     this.current = "";
     this.previous = "";
@@ -22,64 +23,80 @@ class Calculator {
     this.updateDisplay();
   }
 
+  // Adiciona dígito ao número atual
   addDigit(digit) {
     if (digit === "." && this.current.includes(".")) return;
     this.current += digit;
     this.updateDisplay();
   }
 
-  updateDisplay(result = null, op = null, current = null, previous = null) {
+  // Atualiza os visores com os dados atuais
+  updateDisplay(
+    result = null,
+    operator = null,
+    current = null,
+    previous = null
+  ) {
     if (result === null) {
-      this.currentOpEl.innerText = this.current || "0";
-      this.previousOpEl.innerText = this.previous + (this.operator || "");
+      this.currentDisplay.innerText = this.current || "0";
+      this.previousDisplay.innerText = this.previous + (this.operator || "");
     } else {
       this.previous = result.toString();
       this.current = "";
       this.operator = null;
 
-      this.previousOpEl.innerText = "";
-      this.currentOpEl.innerText = this.previous;
+      this.previousDisplay.innerText = "";
+      this.currentDisplay.innerText = this.previous;
 
+      // Exibe erro temporariamente
       if (result === "Erro") {
-        this.currentOpEl.classList.add("error");
-        setTimeout(() => this.currentOpEl.classList.remove("error"), 1000);
+        this.currentDisplay.classList.add("error");
+        setTimeout(() => {
+          this.currentDisplay.classList.remove("error");
+        }, 1000);
       }
 
-      if (previous !== null && current !== null && op) {
-        this.addToHistory(previous, op, current, result);
+      // Adiciona ao histórico, se aplicável
+      if (previous !== null && current !== null && operator) {
+        this.addToHistory(previous, operator, current, result);
       }
     }
   }
 
-  setOperation(op) {
+  // Define a operação atual ou resolve anterior
+  setOperation(operator) {
     if (!this.previous) {
       this.previous = this.current;
-      this.operator = op;
+      this.operator = operator;
       this.current = "";
       this.updateDisplay();
     } else {
       this.processEqual();
-      this.operator = op;
+      this.operator = operator;
     }
   }
 
-  changeOperation(op) {
+  // Altera o operador se o usuário quiser trocar antes de digitar o próximo número
+  changeOperation(operator) {
     const validOps = ["+", "-", "*", "/"];
-    if (!validOps.includes(op)) return;
-    this.operator = op;
-    this.previousOpEl.innerText = this.previous + " " + op;
+    if (!validOps.includes(operator)) return;
+    this.operator = operator;
+    this.previousDisplay.innerText = this.previous + " " + operator;
   }
 
+  // Remove último caractere do número atual
   deleteLast() {
     this.current = this.current.slice(0, -1);
     this.updateDisplay();
   }
 
+  // Limpa apenas o número atual
   clearEntry() {
     this.current = "";
     this.updateDisplay();
   }
 
+  // Inverte o sinal do número atual
   invertSignal() {
     if (!this.current) return;
     this.current = this.current.startsWith("-")
@@ -88,33 +105,35 @@ class Calculator {
     this.updateDisplay();
   }
 
+  // Converte o valor atual para porcentagem, com base na operação anterior (se houver)
   convertPercentage() {
-    const curr = parseFloat(this.current);
-    const prev = parseFloat(this.previous);
+    const currentValue = parseFloat(this.current);
+    const previousValue = parseFloat(this.previous);
 
-    if (isNaN(curr)) return;
+    if (isNaN(currentValue)) return;
 
-    const isAddSub = ["+", "-"].includes(this.operator);
-    const isMulDiv = ["*", "/"].includes(this.operator);
+    let percentage = currentValue;
 
-    const percent =
-      this.operator && !isNaN(prev)
-        ? isAddSub
-          ? (prev * curr) / 100
-          : curr / 100
-        : curr / 100;
+    if (["+", "-"].includes(this.operator) && !isNaN(previousValue)) {
+      percentage = (previousValue * currentValue) / 100;
+    } else if (["*", "/"].includes(this.operator)) {
+      percentage = currentValue / 100;
+    } else {
+      percentage = currentValue / 100;
+    }
 
-    this.current = percent.toString();
+    this.current = percentage.toString();
     this.updateDisplay();
   }
 
+  // Processa qualquer operação recebida
   processOperation(op) {
     if (!this.current && op !== "C") {
       if (this.previous) this.changeOperation(op);
       return;
     }
 
-    const actions = {
+    const operations = {
       "+": () => this.setOperation("+"),
       "-": () => this.setOperation("-"),
       "*": () => this.setOperation("*"),
@@ -127,9 +146,10 @@ class Calculator {
       "%": () => this.convertPercentage(),
     };
 
-    if (actions[op]) actions[op]();
+    if (operations[op]) operations[op]();
   }
 
+  // Realiza o cálculo
   processEqual() {
     if (!this.operator || !this.current) return;
 
@@ -162,63 +182,69 @@ class Calculator {
     this.updateDisplay(formatted, this.operator, curr, prev);
   }
 
-  addToHistory(prev, op, curr, result) {
+  // Adiciona operação ao histórico
+  addToHistory(prev, operator, curr, result) {
     const li = document.createElement("li");
-    li.textContent = `${prev} ${op} ${curr} = ${result}`;
-    this.historyListEl.appendChild(li);
-    this.historyListEl.scrollTop = this.historyListEl.scrollHeight;
+    li.textContent = `${prev} ${operator} ${curr} = ${result}`;
+    this.historyList.appendChild(li);
+    this.historyList.scrollTop = this.historyList.scrollHeight;
   }
 }
 
 // === Inicialização ===
-const calc = new Calculator(
+const calculator = new Calculator(
   previousOperationText,
   currentOperationText,
   historyList
 );
 
-// === Eventos: Botões ===
+// === Eventos: Clique nos botões ===
 buttons.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     const value = e.target.innerText;
-    isNaN(value) && value !== "."
-      ? calc.processOperation(value)
-      : calc.addDigit(value);
-    e.target.focus(); // acessibilidade: manter botão visível ao digitar
+
+    if (!isNaN(value) || value === ".") {
+      calculator.addDigit(value);
+    } else {
+      calculator.processOperation(value);
+    }
+
+    e.target.focus();
   });
 });
 
-// === Tema claro/escuro ===
+// === Alternância de Tema (claro/escuro) ===
 toggleThemeButton.addEventListener("click", () => {
   document.body.classList.toggle("dark-theme");
 });
 
-// === Limpar histórico ===
+// === Limpar Histórico ===
 clearHistoryButton.addEventListener("click", () => {
   historyList.innerHTML = "";
 });
 
-// === Teclado físico ===
+// === Suporte ao Teclado Físico ===
 document.addEventListener("keydown", (e) => {
   const key = e.key;
+
   const match = [...buttons].find(
     (btn) => btn.innerText === key || (key === "Enter" && btn.id === "equal")
   );
-  match?.focus();
+  if (match) match.focus();
 
   if (!isNaN(key) || key === ".") {
-    calc.addDigit(key);
+    calculator.addDigit(key);
   } else if (["+", "-", "*", "/"].includes(key)) {
-    calc.processOperation(key);
+    calculator.processOperation(key);
   } else if (["Enter", "="].includes(key)) {
-    calc.processOperation("=");
+    calculator.processOperation("=");
   } else if (key === "Backspace") {
-    calc.processOperation("DEL");
+    calculator.processOperation("DEL");
   } else if (key === "Escape") {
-    calc.processOperation("C");
+    calculator.processOperation("C");
   } else if (key === "%") {
-    calc.processOperation("%");
+    calculator.processOperation("%");
   } else if (key === "F9") {
-    calc.processOperation("+/-");
+    calculator.processOperation("+/-");
   }
 });
